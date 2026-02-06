@@ -14,7 +14,7 @@ jobs:
 
       - name: Download calendar
         run: |
-          curl -L "https://app.mymusicstaff.com/ical/teacher/PUTYOURCODEHERE.ics" -o calendar.ics
+          curl -L "https://app.mymusicstaff.com/ical/teacher/qoKLnlTWJvgjeZr3Rm1%2BN1OkhFyp8JlGhW1gy3MxIkg%3D.ics" -o calendar.ics
 
       - name: Commit changes
         run: |
