@@ -14,7 +14,7 @@ jobs:
 
       - name: Download calendar
         run: |
-          curl -L "https://app.mymusicstaff.com/CalendarFeed.ashx?User=tch_mS8J2.qoKLnlTWJvgjeZr3Rm1%2BN1OkhFyp8JlGhW1gy3MxIkg%3D" -o calendar.ics
+          curl -L -A "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X)" "https://app.mymusicstaff.com/CalendarFeed.ashx?User=tch_mS8J2.qoKLnlTWJvgjeZr3Rm1%2BN1OkhFyp8JlGhW1gy3MxIkg%3D" -o calendar.ics
 
       - name: Commit changes
         run: |
