@@ -11,16 +11,15 @@ permissions:
 jobs:
   sync:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
 
-      - name: Download calendar
-        run: curl -L --fail -H "Accept: text/calendar" -H "User-Agent: AppleCoreMedia/1.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X)" "https://app.mymusicstaff.com/CalendarFeed.ashx?User=tch_mS8J2.qoKLnlTWJvgjeZr3Rm1%2BN1OkhFyp8JlGhW1gy3MxIkg%3D" -o calendar.ics
+      - name: Fetch calendar
+        run: >
+          curl -L --fail -H "Accept: text/calendar" -H "User-Agent: Mozilla/5.0"
+          "https://app.mymusicstaff.com/CalendarFeed.ashx?User=tch_mS8J2.qoKLnlTWJvgjeZr3Rm1%2BN1OkhFyp8JlGhW1gy3MxIkg%3D"
+          -o calendar.ics
 
-      - name: Commit file
-        run: |
-          git config --global user.name "calendar-bot"
-          git config --global user.email "bot@example.com"
-          git add calendar.ics
-          git commit -m "update calendar" || echo "no changes"
-          git push
+      - name: Push update
+  run: git config --global user.name "calendar-bot" && git config --global user.email "bot@example.com" && git add calendar.ics && git commit -m "update calendar" || echo "no changes" && git push
