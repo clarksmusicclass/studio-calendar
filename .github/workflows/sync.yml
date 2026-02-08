@@ -30,6 +30,11 @@ jobs:
         run: |
           sed -i 's/SUMMARY:.*/SUMMARY:Lesson/g' calendar.ics
 
+      - name: Fix timezone (make website show events)
+        run: |
+          sed -i -E 's/(DSTART:[0-9T]+)/\1Z/g' calendar.ics
+          sed -i -E 's/(DTEND:[0-9T]+)/\1Z/g' calendar.ics
+
       - name: Add correct lesson durations
         run: |
           awk '
