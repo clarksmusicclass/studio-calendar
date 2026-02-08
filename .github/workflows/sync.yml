@@ -30,15 +30,9 @@ jobs:
         run: |
           sed -i 's/SUMMARY:.*/SUMMARY:Lesson/g' calendar.ics
 
-      - name: Fix timezone properly (convert MyMusicStaff floating times)
+      - name: Remove UTC timezone flag (critical)
         run: |
-          # Remove timezone labels
-          sed -i 's/DTSTART;TZID=[^:]*:/DTSTART:/g' calendar.ics
-          sed -i 's/DTEND;TZID=[^:]*:/DTEND:/g' calendar.ics
-
-          # Add UTC Z to all times
-          sed -i -E 's/(DTSTART:[0-9]{8}T[0-9]{6})/\1Z/g' calendar.ics
-          sed -i -E 's/(DTEND:[0-9]{8}T[0-9]{6})/\1Z/g' calendar.ics
+          sed -i 's/Z$//' calendar.ics
 
       - name: Add correct lesson durations
         run: |
