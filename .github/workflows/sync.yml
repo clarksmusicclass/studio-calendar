@@ -27,6 +27,26 @@ jobs:
         run: |
           sed -i 's/SUMMARY:.*/SUMMARY:Lesson/g' calendar.ics
 
+      - name: Add end times (fix blank website calendar)
+        run: |
+          awk '
+          /BEGIN:VEVENT/ {event=1}
+          /DTSTART:/ {start=$0}
+          /END:VEVENT/ {
+              if (event && start && !seen_end) {
+                  gsub("DTSTART:", "", start)
+                  cmd = "date -u -d \"" start "\" +DTEND:%Y%m%dT%H%M%SZ"
+                  cmd | getline dtend
+                  close(cmd)
+                  print dtend
+              }
+              event=0
+              seen_end=0
+          }
+          /DTEND:/ {seen_end=1}
+          {print}
+          ' calendar.ics > fixed.ics && mv fixed.ics calendar.ics    
+
       - name: Push update
         run: |
           git config --global user.name "calendar-bot"
