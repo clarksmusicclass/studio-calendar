@@ -30,6 +30,11 @@ jobs:
         run: |
           sed -i 's/SUMMARY:.*/SUMMARY:Lesson/g' calendar.ics
 
+      - name: Fix floating times (make FullCalendar accept events)
+        run: |
+          sed -i -E 's/DTSTART:([0-9T]+)/DTSTART:\1Z/g' calendar.ics
+          sed -i -E 's/DTEND:([0-9T]+)/DTEND:\1Z/g' calendar.ics
+          
       - name: Remove UTC timezone flag (critical)
         run: |
           sed -i 's/Z$//' calendar.ics
