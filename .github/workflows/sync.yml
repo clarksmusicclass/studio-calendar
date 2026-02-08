@@ -16,12 +16,15 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Fetch calendar
-        run: >
-          curl -L --fail
-          -H "Accept: text/calendar"
-          -H "User-Agent: Mozilla/5.0"
-          "https://app.mymusicstaff.com/CalendarFeed.ashx?User=tch_mS8J2.qoKLnlTWJvgjeZr3Rm1%2BN10khFyp8JlGhW1gy3MxIkg%3D"
-          -o calendar.ics
+        run: |
+          curl 'https://app.mymusicstaff.com/CalendarFeed.ashx?User=tch_mS8J2.qoKLn1TWJvgjeZr3Rm1%2BN10khFyp8JlGhW1gy3MxIkg%3D' \
+            -L \
+            -o calendar.ics \
+            -H 'authority: app.mymusicstaff.com' \
+            -H 'accept: text/calendar,*/*;q=0.9' \
+            -H 'accept-language: en-US,en;q=0.9' \
+            -H 'referer: https://app.mymusicstaff.com/' \
+            -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36'
 
       - name: Remove student names (privacy filter)
         run: |
