@@ -14,12 +14,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-
       - name: Fetch calendar
-        run: >
-          curl -L --fail -H "Accept: text/calendar" -H "User-Agent: Mozilla/5.0"
-          "https://app.mymusicstaff.com/CalendarFeed.ashx?User=tch_mS8J2.qoKLnlTWJvgjeZr3Rm1%2BN1OkhFyp8JlGhW1gy3MxIkg%3D"
-          -o calendar.ics
-
+        run: curl -L --fail -H "Accept: text/calendar" -H "User-Agent: Mozilla/5.0" "https://app.mymusicstaff.com/CalendarFeed.ashx?User=tch_mS8J2.qoKLnlTWJvgjeZr3Rm1%2BN1OkhFyp8JlGhW1gy3MxIkg%3D" -o calendar.ics
       - name: Push update
-  run: git config --global user.name "calendar-bot" && git config --global user.email "bot@example.com" && git add calendar.ics && git commit -m "update calendar" || echo "no changes" && git push
+        run: git config --global user.name "calendar-bot" && git config --global user.email "bot@example.com" && git add calendar.ics && git commit -m "update calendar" || echo "no changes" && git push
