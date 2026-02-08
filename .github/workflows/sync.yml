@@ -14,8 +14,19 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
       - name: Fetch calendar
-        run: 'curl -L --fail -H "Accept: text/calendar" -H "User-Agent: Mozilla/5.0" "https://app.mymusicstaff.com/CalendarFeed.ashx?User=tch_mS8J2.qoKLnlTWJvgjeZr3Rm1%2BN1OkhFyp8JlGhW1gy3MxIkg%3D" -o calendar.ics'
+        run: >
+          curl -L --fail
+          -H "Accept: text/calendar"
+          -H "User-Agent: Mozilla/5.0"
+          "https://app.mymusicstaff.com/CalendarFeed.ashx?User=tch_mS8J2.qoKLnlTWJvgjeZr3Rm1%2BN10khFyp8JlGhW1gy3MxIkg%3D"
+          -o calendar.ics
+
+      - name: Remove student names (privacy filter)
+        run: |
+          sed -i 's/SUMMARY:.*/SUMMARY:Lesson/g' calendar.ics
+
       - name: Push update
         run: |
           git config --global user.name "calendar-bot"
