@@ -30,25 +30,54 @@ jobs:
         run: |
           sed -i 's/SUMMARY:.*/SUMMARY:Lesson/g' calendar.ics
 
-      - name: Add end times (fix blank website calendar)
+      - name: Add correct lesson durations
         run: |
           awk '
-          /BEGIN:VEVENT/ {event=1}
-          /DTSTART:/ {start=$0}
-          /END:VEVENT/ {
-              if (event && start && !seen_end) {
-                  gsub("DTSTART:", "", start)
-                  cmd = "date -u -d \"" start "\" +DTEND:%Y%m%dT%H%M%SZ"
-                  cmd | getline dtend
-                  close(cmd)
-                  print dtend
-              }
-              event=0
-              seen_end=0
+          function add_minutes(y,mo,d,h,mi,extra){
+             mi += extra
+             while (mi >= 60) { mi -= 60; h += 1 }
+            return sprintf("%s%s%sT%02d%02d00Z",y,mo,d,h,mi)
           }
-          /DTEND:/ {seen_end=1}
-          {print}
-          ' calendar.ics > fixed.ics && mv fixed.ics calendar.ics    
+
+          BEGIN { in_event=0; duration=30 }
+
+          /BEGIN:VEVENT/ {
+              in_event=1
+              duration=30
+              summary=""
+              print
+              next
+          }
+
+          /SUMMARY:/ {
+              summary=$0
+
+              if ($0 ~ /Introductory Lesson/) duration=30
+              else if ($0 ~ /Private Lesson/) duration=30
+              else if ($0 ~ /Lesson/) duration=50
+
+              print
+              next
+          }
+
+          /DTSTART:/ {
+              print
+              start=$0
+              gsub("DTSTART:", "", start)
+
+              y=substr(start,1,4)
+              mo=substr(start,5,2)
+              d=substr(start,7,2)
+              h=substr(start,10,2)
+              mi=substr(start,12,2)
+
+              end=add_minutes(y,mo,d,h,mi,duration)
+              print "DTEND:" end
+              next
+          }
+
+          { print }
+          ' calendar.ics > fixed.ics && mv fixed.ics calendar.ics
 
       - name: Push update
         run: |
