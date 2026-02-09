@@ -22,6 +22,15 @@ jobs:
             "https://app.mymusicstaff.com/CalendarFeed.ashx?User=tch_mS8J2.qoKLnlTWJvgjeZr3Rm1%2BN1OkhFyp8JlGhW1gy3MxIkg%3D" \
             -o calendar.ics
 
+      - name: Validate calendar file (critical)
+        run: |
+          if ! grep -q "BEGIN:VCALENDAR" calendar.ics; then
+            echo "Downloaded file is not a real ICS — authentication expired"
+            echo "---- FILE CONTENT ----"
+            head -n 20 calendar.ics
+            exit 1
+          fi
+
       - name: Remove student names (privacy filter)
         run: |
           sed -i 's/SUMMARY:.*/SUMMARY:Lesson/g' calendar.ics
