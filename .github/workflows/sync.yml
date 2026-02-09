@@ -19,15 +19,16 @@ jobs:
         run: |
           curl -L \
             -H "Cookie: TeacherPortalAuth=${{ secrets.MMS_COOKIE }}" \
+            -H "User-Agent: Mozilla/5.0" \
+            -H "Accept: text/calendar" \
             "https://app.mymusicstaff.com/CalendarFeed.ashx?User=tch_mS8J2.qoKLnlTWJvgjeZr3Rm1%2BN1OkhFyp8JlGhW1gy3MxIkg%3D" \
             -o calendar.ics
 
       - name: Validate calendar file (critical)
         run: |
           if ! grep -q "BEGIN:VCALENDAR" calendar.ics; then
-            echo "Downloaded file is not a real ICS — authentication expired"
-            echo "---- FILE CONTENT ----"
-            head -n 20 calendar.ics
+            echo "Calendar download failed (authentication expired)"
+            cat calendar.ics
             exit 1
           fi
 
