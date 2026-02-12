@@ -162,6 +162,30 @@ window.addEventListener("orientationchange", loadCalendar);
 /* desktop resize */
 window.addEventListener("resize", loadCalendar);
 </script>
+<script>
+/* ---- TRUE ANDROID PULL-TO-REFRESH BLOCKER ---- */
+
+let startY = 0;
+
+window.addEventListener('touchstart', function(e){
+  startY = e.touches[0].clientY;
+}, {passive:true});
+
+window.addEventListener('touchmove', function(e){
+
+  const currentY = e.touches[0].clientY;
+  const pullingDown = currentY > startY;
+
+  /* finger is near top 120px of screen */
+  const nearTopOfScreen = startY < 120;
+
+  if(pullingDown && nearTopOfScreen){
+    e.preventDefault();
+  }
+
+}, {passive:false});
+</script>
+    
   </div>
 </div>
 
