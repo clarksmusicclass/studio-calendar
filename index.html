@@ -10,16 +10,19 @@
   /* MOBILE FIX */
 @media (max-width:700px){
 
-  /* create vertical breathing room so page scrolls naturally */
+  /* give the page side gutters for thumb scrolling */
   .wrap{
-    padding:30px 14px 70px 14px;
+    padding:28px 22px 80px 22px;
   }
 
-  /* shrink calendar so thumb can scroll page */
+  /* center the calendar and make it narrower than screen */
   .frame{
     height:1150px;
-    margin:18px 100px 40px 0px;
-    border-radius:14px;
+    margin:18px auto 40px auto;
+    border-radius:16px;
+
+    width:92%;           /* IMPORTANT — no longer full width */
+    max-width:420px;     /* keeps it comfortable on large phones */
   }
 
   .frame iframe{
