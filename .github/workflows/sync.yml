@@ -17,7 +17,7 @@ jobs:
 
       - name: Download Google Calendar
         run: |
-          curl -L "https://calendar.google.com/calendar/ical/f23db1d5d9534184c7d314f59cf5365548a1170b3921dd85e657d83d53cefac3%40group.calendar.google.com/public/basic.ics" -o calendar.ics
+          curl -L "http://app.mymusicstaff.com/CalendarFeed.ashx?User=tch_mS8J2.cFWGo%2FudUHuD1lno" -o calendar.ics
 
       - name: Commit updated calendar
         run: |
