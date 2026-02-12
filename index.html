@@ -1,55 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>Clark's Music Class Studio Calendar</title>
-
-  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/icalendar@6.1.11/index.global.min.js"></script>
-
-  <style>
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      margin: 40px;
-      background: #f7f7f7;
-    }
-    h1 {
-      text-align: center;
-    }
-    #calendar {
-      max-width: 1100px;
-      margin: auto;
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,.15);
-    }
-  </style>
+<meta charset="utf-8">
+<title>Clark's Music Class Teacher Schedule</title>
+<style>
+body{margin:0;font-family:Arial;background:#eef1f4;}
+.header{
+background:#243447;
+color:white;
+text-align:center;
+padding:18px;
+font-size:22px;
+font-weight:bold;
+}
+.wrap{padding:20px;}
+.frame{
+position:relative;
+width:100%;
+padding-bottom:75%;
+height:0;
+}
+.frame iframe{
+position:absolute;
+top:0;left:0;width:100%;height:100%;border:0;
+}
+</style>
 </head>
-
 <body>
-  <h1>Clark's Music Class — Studio Schedule</h1>
-  <div id="calendar"></div>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
+<div class="header">Clark's Music Class — Teacher Lesson Schedule</div>
 
-      const calendar = new FullCalendar.Calendar(
-        document.getElementById('calendar'),
-        {
-          initialView: 'timeGridWeek',
-          nowIndicator: true,
-          height: "auto",
-          events: {
-            url: 'calendar.ics?v=' + Date.now(),
-            format: 'ics'
-          }
-        }
-      );
+<div class="wrap">
+<div class="frame">
+<iframe src="https://calendar.google.com/calendar/embed?src=f23db1d5d9534184c7d314f59cf5365548a1170b3921dd85e657d83d53cefac3%40group.calendar.google.com&ctz=America%2FChicago&mode=WEEK"></iframe>
+</div>
+</div>
 
-      calendar.render();
-    });
-  </script>
 </body>
 </html>
