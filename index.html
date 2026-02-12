@@ -8,15 +8,24 @@
 <style>
 
   /* MOBILE FIX */
-@media (max-width: 700px){
+@media (max-width:700px){
 
+  /* create vertical breathing room so page scrolls naturally */
+  .wrap{
+    padding:30px 14px 70px 14px;
+  }
+
+  /* shrink calendar so thumb can scroll page */
   .frame{
-    height:1200px;
+    height:1150px;
+    margin:18px 0 40px 0;
+    border-radius:14px;
   }
 
   .frame iframe{
-    height:1200px;
+    height:1150px;
   }
+
 }
   
 body{
@@ -34,6 +43,9 @@ body{
   padding:18px;
   font-size:22px;
   font-weight:bold;
+  position:sticky;
+  top:0;
+  z-index:5;
 }
 
 .wrap{
