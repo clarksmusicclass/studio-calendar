@@ -36,7 +36,7 @@
   position:absolute;
   top:0;
   bottom:0;
-  width:100px;           /* size of thumb rail */
+  width:200px;           /* size of thumb rail */
   z-index:5;
 }
 
@@ -62,7 +62,20 @@ body{
     /* 🔥 prevents mobile refresh when calendar hits top/bottom */
   overscroll-behavior-y: contain;
 }
+  
+html, body{
+  overscroll-behavior-y: none;
+  height:100%;
+}
 
+  .wrap{
+  overscroll-behavior:none;
+}
+  
+  .frame{
+  touch-action: pan-y;
+}
+  
 .header{
   background:#243447;
   color:white;
