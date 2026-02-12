@@ -21,14 +21,38 @@
     margin:18px auto 40px auto;
     border-radius:16px;
 
-    width:92%;           /* IMPORTANT — no longer full width */
-    max-width:420px;     /* keeps it comfortable on large phones */
+    width:calc(100%-70px);           /* IMPORTANT — no longer full width */
+    max-width:460px;     /* keeps it comfortable on large phones */
   }
 
   .frame iframe{
     height:1150px;
   }
 
+/* side touch gutters (VERY IMPORTANT) */
+.frame::before,
+.frame::after{
+  content:"";
+  position:absolute;
+  top:0;
+  bottom:0;
+  width:22px;           /* size of thumb rail */
+  z-index:5;
+}
+
+.frame::before{
+  left:-22px;
+}
+
+.frame::after{
+  right:-22px;
+}
+
+ /* allow page scrolling when touching edges */
+.frame::before,
+.frame::after{
+  pointer-events:auto;
+} 
 }
   
 body{
