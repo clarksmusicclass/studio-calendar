@@ -23,6 +23,8 @@ body{
   margin:0;
   font-family:Arial, Helvetica, sans-serif;
   background:#eef1f4;
+    /* 🔥 prevents mobile refresh when calendar hits top/bottom */
+  overscroll-behavior-y: contain;
 }
 
 .header{
@@ -37,7 +39,12 @@ body{
 .wrap{
   padding:20px;
 }
-
+  
+html, body{
+  height:100%;
+  overflow-x:hidden;
+}
+  
 /* frame holds the google calendar */
 .frame{
   position:relative;
